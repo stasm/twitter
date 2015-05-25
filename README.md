@@ -101,11 +101,11 @@ Using the stream convenience method, you to open and manipulate data via a strea
     var client = new Twitter(options);
     
     Twitter.streamAsync(client, 'statuses/filter', {track: 'javascript'}, function(stream) {
-      stream.on('data', function(tweet) {
+      stream.on('data', Meteor.bindEnvironment(function(tweet) {
         console.log(tweet.text);
-      });
+      }));
 
-      stream.on('error', function(error) {
+      stream.on('error', Meteor.bindEnvironment(function(error) {
         throw error;
-      });
+      }));
     });
